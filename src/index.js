@@ -1,6 +1,6 @@
 const LiveVideo = class {
   constructor(video, audio = true) {
-    this.video = video
+    this.video = video;
     this.audio = audio;
   }
 
