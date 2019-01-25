@@ -1,7 +1,7 @@
 {
   "name": "live-video",
   "version": "0.0.1",
-  "description": "Class to create live video streams on canvas",
+  "description": "Live video streams on video tag from device camera",
   "main": "./lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
