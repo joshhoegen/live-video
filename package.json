@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/flexdinesh/npm-module-boilerplate.git"
+    "url": "git+https://github.com/joshhoegen/live-video.git"
   },
   "keywords": [
     "video",
@@ -31,7 +31,7 @@
   ],
   "author": "Josh Hoegen <joshhoegen@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/joshhoegen",
+  "homepage": "https://github.com/joshhoegen/live-video",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
