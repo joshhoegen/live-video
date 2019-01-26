@@ -9,7 +9,7 @@ const LiveVideo = class {
     this.video = video;
     this.audio = audio;
     this.activeCamera = camera;
-    this.vidVal = this.getCamera();
+    this.vidVal = video ? this.getCamera() : true;
   }
 
   getCamera() {
