@@ -40,7 +40,7 @@ const LiveVideo = class {
       audio,
       video
     } = this;
-    console.log(audio);
+
     if (video && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       return navigator.mediaDevices.getUserMedia({
         video: this.vidVal,
