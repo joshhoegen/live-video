@@ -7,13 +7,12 @@ const LiveVideo = class {
    * @param {Number} props.camera - Which camera to use.
    */
   constructor(props) {
-    props = Object.assign({
-      video: document.createElement('video'),
+    const params = Object.assign({
       audio: true,
       camera: 0
     }, props);
 
-    Object.assign(this, props);
+    Object.assign(this, params);
     this.vidVal = this.video ? this.getCamera() : true;
   }
 
