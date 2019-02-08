@@ -1,15 +1,19 @@
 const LiveVideo = class {
   /**
    * Return chosen camera. Return default true value if only one exists
-   * @param {Object} video - A video element.
-   * @param {bool} audio - Use audio?
-   * @param {Number} camera - Which camera to use.
+   * @param {Object} props - Holds params to start live-video.
+   * @param {Element} props.video - A video element.
+   * @param {bool} props.audio - Use audio?
+   * @param {Number} props.camera - Which camera to use.
    */
-  constructor(video, audio = true, camera = 0) {
-    this.video = video;
-    this.audio = audio;
-    this.activeCamera = camera;
-    this.vidVal = video ? this.getCamera() : true;
+  constructor(props) {
+    const params = Object.assign({
+      audio: true,
+      camera: 0
+    }, props);
+
+    Object.assign(this, params);
+    this.vidVal = this.video ? this.getCamera() : true;
   }
 
   getCamera() {
@@ -25,7 +29,7 @@ const LiveVideo = class {
 
       return {
         deviceId: {
-          exact: cameras[this.activeCamera].deviceId
+          exact: cameras[this.camera].deviceId
         }
       };
     }).catch(() => true);
@@ -36,6 +40,7 @@ const LiveVideo = class {
       audio,
       video
     } = this;
+
     if (video && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       return navigator.mediaDevices.getUserMedia({
         video: this.vidVal,
