@@ -3,18 +3,20 @@
 Tiny! No Deps! ~2kb!
 
 ```js
-// JUST CALL VideoToCanvas(video, audio, camera)
+// JUST CALL LiveVideo({video: video, audio: false, camera: 0})
 /**
  * Return chosen camera. Return default true value if only one exists
- * @param {Object} video - Required. A video element.
- * @param {bool} audio - Optional. Use audio?
- * @param {Number} camera - Optional. Which camera to use.
+ * @param {Object} props - Holds params to start live-video.
+ * @param {Element} props.video - A video element.
+ * @param {bool} props.audio - Use audio?
+ * @param {Number} props.camera - Which camera to use.
  */
 
-// Simply add a video node
+// Import
 import LiveVideo from 'live-video';
 
-const lv = new LiveVideo(document.getElementById('myVideo'), false)
+// Simply add a video node
+const lv = new LiveVideo(document.getElementById('myVideo'), false);
 lv.play().then(() => {
   // Do stuff
 });
