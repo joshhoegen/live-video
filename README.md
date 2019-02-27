@@ -3,7 +3,7 @@
 Tiny! No Deps! ~2kb!
 
 ```
-npm insyall live-video
+npm install live-video
 ```
 
 ```js
