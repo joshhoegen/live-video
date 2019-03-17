@@ -7,58 +7,74 @@ const LiveVideo = class {
    * @param {Number} props.camera - Which camera to use.
    */
   constructor(props) {
-    const params = Object.assign({
-      audio: true,
-      camera: 0
-    }, props);
+    const params = Object.assign(
+      {
+        audio: true,
+        camera: 0
+      },
+      props
+    );
 
     Object.assign(this, params);
     this.vidVal = this.video ? this.getCamera() : true;
   }
 
-  getCamera() {
+  static listCameras() {
     const cameras = [];
     const getDevices = navigator.mediaDevices.enumerateDevices();
 
-    return getDevices.then((info) => {
-      for (let i = 0; i < info.length; i += 1) {
-        if (info[i].kind === 'videoinput') {
-          cameras.push(info[i]);
+    return getDevices
+      .then((info) => {
+        for (let i = 0; i < info.length; i += 1) {
+          if (info[i].kind === 'videoinput') {
+            cameras.push(info[i]);
+          }
         }
-      }
+        return cameras;
+      })
+      .catch(() => []);
+  }
 
-      return {
+  getCamera() {
+    return LiveVideo.listCameras()
+      .then(arr => ({
         deviceId: {
-          exact: cameras[this.camera].deviceId
+          exact: arr[this.camera].deviceId,
+          label: arr[this.camera].label
         }
-      };
-    }).catch(() => true);
+      }))
+      .catch(() => true);
   }
 
   play() {
-    const {
-      audio,
-      video
-    } = this;
+    const { audio, video } = this;
 
-    if (video && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      return navigator.mediaDevices.getUserMedia({
-        video: this.vidVal,
-        audio
-      }).then((stream) => {
-        try {
-          video.srcObject = stream;
-        } catch (error) {
-          video.src = window.URL.createObjectURL(stream);
+    return this.vidVal
+      .then((v) => {
+        if (video && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          return navigator.mediaDevices
+            .getUserMedia({
+              video: v,
+              audio
+            })
+            .then((stream) => {
+              try {
+                video.srcObject = stream;
+              } catch (error) {
+                video.src = window.URL.createObjectURL(stream);
+              }
+
+              video.play();
+            });
         }
 
-        video.play();
+        return false;
+      })
+      .catch((e) => {
+        console.log('video && navigator.mediaDevices && navigator.mediaDevices.getUserMedia not found');
+        console.log(e);
+        return false;
       });
-    }
-
-    console.log('video && navigator.mediaDevices && navigator.mediaDevices.getUserMedia not found');
-
-    return false;
   }
 
   pause() {
