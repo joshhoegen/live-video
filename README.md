@@ -2,6 +2,10 @@
 
 Tiny! No Deps! ~2kb!
 
+```
+npm install live-video
+```
+
 ```js
 // JUST CALL LiveVideo({video: video, audio: false, camera: 0})
 /**
