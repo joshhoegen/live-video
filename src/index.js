@@ -35,7 +35,12 @@ const LiveVideo = class {
       .catch(() => []);
   }
 
-  getCamera() {
+  async getCamera() {
+    await navigator.mediaDevices.getUserMedia({
+      audio: this.audio,
+      camera: this.camera
+    });
+
     return LiveVideo.listCameras()
       .then(arr => ({
         deviceId: {
@@ -51,7 +56,7 @@ const LiveVideo = class {
 
     return this.vidVal
       .then((v) => {
-        if (video && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        if (video && navigator.mediaDevices) {
           return navigator.mediaDevices
             .getUserMedia({
               video: v,
@@ -71,7 +76,7 @@ const LiveVideo = class {
         return false;
       })
       .catch((e) => {
-        console.log('video && navigator.mediaDevices && navigator.mediaDevices.getUserMedia not found');
+        console.log('video or navigator.mediaDevices not found');
         console.log(e);
         return false;
       });
