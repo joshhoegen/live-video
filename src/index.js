@@ -10,20 +10,20 @@ const LiveVideo = class {
     const params = Object.assign(
       {
         audio: true,
-        camera: 0
+        camera: 0,
       },
-      props
+      props,
     );
 
     Object.assign(this, params);
     this.vidVal = this.video ? this.getCamera() : true;
   }
 
-  static listCameras() {
+  static async listCameras() {
     const cameras = [];
     const getDevices = navigator.mediaDevices.enumerateDevices();
 
-    return getDevices
+    await getDevices
       .then((info) => {
         for (let i = 0; i < info.length; i += 1) {
           if (info[i].kind === 'videoinput') {
@@ -38,15 +38,15 @@ const LiveVideo = class {
   async getCamera() {
     await navigator.mediaDevices.getUserMedia({
       audio: this.audio,
-      camera: this.camera
+      camera: this.camera,
     });
 
     return LiveVideo.listCameras()
       .then(arr => ({
         deviceId: {
           exact: arr[this.camera].deviceId,
-          label: arr[this.camera].label
-        }
+          label: arr[this.camera].label,
+        },
       }))
       .catch(() => true);
   }
@@ -60,7 +60,7 @@ const LiveVideo = class {
           return navigator.mediaDevices
             .getUserMedia({
               video: v,
-              audio
+              audio,
             })
             .then((stream) => {
               try {
