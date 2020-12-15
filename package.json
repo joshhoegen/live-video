@@ -1,6 +1,6 @@
 {
   "name": "live-video",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Live video streams on video tag from device camera",
   "main": "./lib/index.js",
   "scripts": {
